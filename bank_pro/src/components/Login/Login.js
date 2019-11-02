@@ -3,6 +3,9 @@ import LoginForm from "./LoginForm";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import Cookies from "universal-cookie";
 import "./Login.css";
+import {Redirect} from "react-router-dom";
+import request from "request";
+import soap from "soap";
 
 const registerURL = "<TARGET WEBSITE>";
 
@@ -25,28 +28,54 @@ class Login extends Component {
     e.preventDefault();
 
     const account = e.target.elements.username.value;
+    
+    const request = require("request");
+    let xml = 
+    `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:log="http://login/">
+        <soapenv:Header/>
+        <soapenv:Body>
+          <log:AccountLogin>
+              <arg0>` + account +  `</arg0>
+          </log:AccountLogin>
+        </soapenv:Body>
+    </soapenv:Envelope>`;
 
-    let formBody = [];
-    const encodedKey = encodeURIComponent(account);
-    formBody.push("ACCOUNT = " + encodedKey);
-    console.log(formBody);
+    var options = {
+      url: 'http://localhost:8080/ws_bank_war_exploded/services/Login?wsdl',
+      method: 'POST',
+      body: xml,
+      headers: {
+        'Content-Type':'text/xml;charset=utf-8',
+      }
+    };
 
-    // const register_call = await fetch(registerURL, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-    //   },
-    //   body: formBody
-    // });
-    // const data = await register_call.json();
+    let callback = (error, response, body) => {
+      console.log(body);
+      if (!error && response.statusCode === 200) {
+        console.log('Raw result', body);
+        // var xml2js = require('xml2js');
+        // var parser = new xml2js.Parser({explicitArray: false, trim: true});
+        // parser.parseString(body, (err, result) => {
+        //   console.log('JSON result', result);
+        // });
+      };
+      console.log('E', response.statusCode, response.statusMessage);  
+    };
+    request(options, callback);
 
-    // Check data to set coookie NOWWWO
 
-    const cookie = new Cookies();
-    cookie.set("login", "testValue", { path: "/", expires: new Date(Date.now()+1800000)});
+    // const cookie = new Cookies();
+    // cookie.set("login", "testValue", { path: "/", expires: new Date(Date.now()+1800000)});
+    // window.location.reload();
   };
 
   render() {
+    if (new Cookies().get("login")) {
+      return <Redirect to = {{
+        pathname: "/Title"
+      }} />
+    }
+
     return (
       <React.Fragment>
         <NavigationBar/>
