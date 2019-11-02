@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Router from "./components/Router/Router";
+import NavigationBarBottom from "./components/NavigationBar_Bottom/NavigationBarBottom";
+
+/**
+ * Class utama yang menampilkan hasil render dari semua komponen di bawahnya
+ */
+class App extends Component {
+  state = {
+    showScreen: "title",
+    loggedIn: false,
+    authToken: ""
+  };
+
+  /**
+   * Handle jika sudah login. Mengganti laman menjadi search dan set token menjadi authorityToken yang didapatkan
+   */
+  handleLoggedIn = token => {
+    this.setState({ showScreen: "search" });
+    this.setState({ loggedIn: true });
+    this.setState({ authToken: token });
+  };
+
+  /**
+   * Handle jika sudah logout. Mengganti laman menjadi title dan set token menjadi unknown (sudah loggedOut)
+   */
+  handleLoggedOut = () => {
+    this.setState({ showScreen: "title" });
+    this.setState({ loggedIn: false });
+    this.setState({ authToken: undefined });
+  };
+
+  render() {
+    // Di atas Fragment buatlah NavBar dahulu untuk pindah laman
+    return (
+      <React.Fragment>
+        <div className="bg">
+          <Router/>
+        </div>
+        <NavigationBarBottom />
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
