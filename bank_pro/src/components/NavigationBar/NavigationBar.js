@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 class NavigationBar extends Component {
   state = {
     loggedIn : false,
-    cookie: ""
+    cookie: undefined
   };
 
   constructor() {
@@ -16,9 +16,7 @@ class NavigationBar extends Component {
     const cookie = new Cookies();
     this.state.cookie = cookie.get("login");
     if (this.state.cookie) {
-      this.setState({
-        loggedIn: true
-      });
+      this.state.loggedIn = true
     }
   }
 
@@ -29,8 +27,7 @@ class NavigationBar extends Component {
   }
 
   cookieNameGetter = () => {
-    let name = (this.state.cookie) ? this.state.cookie.split(';')[1] : "";
-    return name;
+    return this.state.cookie.split(";")[1];
   }
 
   render() {
@@ -135,7 +132,7 @@ class NavigationBar extends Component {
             <li className="nav-item">
               <label className = "btn btn-default">
                 <font color = "white">
-                  {this.cookieNameGetter()}
+                  Hello, <b>{this.cookieNameGetter()}</b>
                 </font>
               </label>
             </li>
