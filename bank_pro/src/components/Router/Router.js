@@ -7,18 +7,34 @@ import Transfer from "../Transfer/Transfer"
 import TransactionHistory from "../Transaction/TransactionHistory"
 
 const Router = () => {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route exact path = "/" render = {() => (<Redirect to = "/Title"/>)}/>
-                <Route exact path = "/Login" component = {Login}/>
-                <Route exact path = "/Help" component = {Help}  />
-                <Route exact path = "/Title" component = {Title}/>
-                <Route exact path = "/Transfer" component = {Transfer}/>
-                <Route exact path = "/TransactionHistory" component = {TransactionHistory}/>
-            </Switch>
-        </BrowserRouter>
-    )
+    if (!new Cookies().get("login")) {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path = "/" render = {() => (<Redirect to = "/Title"/>)}/>
+                    <Route exact path = "/Login" component = {Login}/>
+                    <Route exact path = "/Help" component = {Help}  />
+                    <Route exact path = "/Title" component = {Title}/>
+                    <Route exact path = "/Transfer" component = {Login}/>
+                    <Route exact path = "/TransactionHistory" component = {Login}/>
+                </Switch>
+            </BrowserRouter>
+        )
+    }
+    else {
+        return (
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path = "/" render = {() => (<Redirect to = "/Title"/>)}/>
+                    <Route exact path = "/Login" component = {Login}/>
+                    <Route exact path = "/Help" component = {Help}  />
+                    <Route exact path = "/Title" component = {Title}/>
+                    <Route exact path = "/Transfer" component = {Transfer}/>
+                    <Route exact path = "/TransactionHistory" component = {TransactionHistory}/>
+                </Switch>
+            </BrowserRouter>
+        )
+    }   
 }
 
 export default Router;

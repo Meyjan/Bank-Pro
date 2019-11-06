@@ -70,12 +70,6 @@ class Login extends Component {
   };
 
   render() {
-    if (new Cookies().get("login")) {
-      return <Redirect to = {{
-        pathname: "/Title"
-      }} />
-    }
-
     return (
       <React.Fragment>
         <NavigationBar/>

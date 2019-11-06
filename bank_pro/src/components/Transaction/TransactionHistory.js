@@ -8,12 +8,6 @@ import NavigationBar from "../NavigationBar/NavigationBar";
  * Merupakan laman Help yang memberikan basa-basi mengenai fitur yang terdapat dalam program ini
  */
 const TransactionHistory = () => {
-  if (!new Cookies().get("login")) {
-    return <Redirect to = {{
-      pathname: "/Title"
-    }} />
-  }
-
   return (
     <React.Fragment>
       <NavigationBar/>
