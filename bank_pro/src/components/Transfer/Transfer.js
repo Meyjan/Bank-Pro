@@ -1,7 +1,5 @@
 import React from "react";
 import "./Transfer.css";
-import Cookies from "universal-cookie";
-import {Redirect} from "react-router-dom";
 import NavigationBar from "../NavigationBar/NavigationBar";
 
 /**

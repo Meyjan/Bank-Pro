@@ -5,6 +5,7 @@ import Title from "../Title/Title"
 import Help from "../Help/Help"
 import Transfer from "../Transfer/Transfer"
 import TransactionHistory from "../Transaction/TransactionHistory"
+import Cookies from "universal-cookie";
 
 const Router = () => {
     if (!new Cookies().get("login")) {
@@ -26,7 +27,7 @@ const Router = () => {
             <BrowserRouter>
                 <Switch>
                     <Route exact path = "/" render = {() => (<Redirect to = "/Title"/>)}/>
-                    <Route exact path = "/Login" component = {Login}/>
+                    <Route exact path = "/Login" component = {Title}/>
                     <Route exact path = "/Help" component = {Help}  />
                     <Route exact path = "/Title" component = {Title}/>
                     <Route exact path = "/Transfer" component = {Transfer}/>

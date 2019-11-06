@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Cookies from "universal-cookie";
-import {useHistory, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 /**
  * Merupakan laman NavigationBar yang merupakan interface untuk perpindahan antar laman
@@ -8,7 +8,7 @@ import {useHistory, Link} from "react-router-dom";
 class NavigationBar extends Component {
   state = {
     loggedIn : false,
-    cookie: undefined
+    cookie: ""
   };
 
   constructor() {
@@ -16,7 +16,9 @@ class NavigationBar extends Component {
     const cookie = new Cookies();
     this.state.cookie = cookie.get("login");
     if (this.state.cookie) {
-      this.state.loggedIn = true
+      this.setState({
+        loggedIn: true
+      });
     }
   }
 
@@ -24,6 +26,11 @@ class NavigationBar extends Component {
     const cookie = new Cookies();
     cookie.remove("login");
     window.location.reload();
+  }
+
+  cookieNameGetter = () => {
+    let name = (this.state.cookie) ? this.state.cookie.split(';')[1] : "";
+    return name;
   }
 
   render() {
@@ -109,8 +116,9 @@ class NavigationBar extends Component {
             }
             </li>
           </ul>
-          <ul className="nav navbar-nav navbar-right mt-2 mt-lg-0">
-            {!this.state.loggedIn && (
+         
+          {!this.state.loggedIn && (
+            <ul className="nav navbar-nav navbar-right mt-2 mt-lg-0">
               <li className="nav-item">
                 <Link to = "/Login">
                   <button
@@ -120,18 +128,27 @@ class NavigationBar extends Component {
                   </button>
                 </Link>
               </li>
-            )}
-            {this.state.loggedIn && (
-              <li className="nav-item">
-                <button
-                  className="btn btn-default"
-                  onClick={() => {this.handleLogout()}}
-                >
-                  <font color="white">Logout</font>
-                </button>
-              </li>
-            )}
-          </ul>
+            </ul>
+          )}
+          {this.state.loggedIn && (
+            <ul className="nav navbar-nav navbar-right mt-2 mt-lg-0">
+            <li className="nav-item">
+              <label className = "btn btn-default">
+                <font color = "white">
+                  {this.cookieNameGetter()}
+                </font>
+              </label>
+            </li>
+            <li className="nav-item">
+              <button
+                className="btn btn-default"
+                onClick={() => {this.handleLogout()}}
+              >
+                <font color="white">Logout</font>
+              </button>
+            </li>
+            </ul>
+          )}
         </div>
       </nav>
     );
