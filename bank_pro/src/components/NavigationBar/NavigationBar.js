@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Cookies from "universal-cookie";
-import {useHistory, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 /**
  * Merupakan laman NavigationBar yang merupakan interface untuk perpindahan antar laman
@@ -24,6 +24,10 @@ class NavigationBar extends Component {
     const cookie = new Cookies();
     cookie.remove("login");
     window.location.reload();
+  }
+
+  cookieNameGetter = () => {
+    return this.state.cookie.split(";")[1];
   }
 
   render() {
@@ -109,8 +113,9 @@ class NavigationBar extends Component {
             }
             </li>
           </ul>
-          <ul className="nav navbar-nav navbar-right mt-2 mt-lg-0">
-            {!this.state.loggedIn && (
+         
+          {!this.state.loggedIn && (
+            <ul className="nav navbar-nav navbar-right mt-2 mt-lg-0">
               <li className="nav-item">
                 <Link to = "/Login">
                   <button
@@ -120,18 +125,27 @@ class NavigationBar extends Component {
                   </button>
                 </Link>
               </li>
-            )}
-            {this.state.loggedIn && (
-              <li className="nav-item">
-                <button
-                  className="btn btn-default"
-                  onClick={() => {this.handleLogout()}}
-                >
-                  <font color="white">Logout</font>
-                </button>
-              </li>
-            )}
-          </ul>
+            </ul>
+          )}
+          {this.state.loggedIn && (
+            <ul className="nav navbar-nav navbar-right mt-2 mt-lg-0">
+            <li className="nav-item">
+              <label className = "btn btn-default">
+                <font color = "white">
+                  Hello, <b>{this.cookieNameGetter()}</b>
+                </font>
+              </label>
+            </li>
+            <li className="nav-item">
+              <button
+                className="btn btn-default"
+                onClick={() => {this.handleLogout()}}
+              >
+                <font color="white">Logout</font>
+              </button>
+            </li>
+            </ul>
+          )}
         </div>
       </nav>
     );

@@ -3,11 +3,6 @@ import LoginForm from "./LoginForm";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import Cookies from "universal-cookie";
 import "./Login.css";
-import {Redirect} from "react-router-dom";
-import request from "request";
-import soap from "soap";
-
-const registerURL = "<TARGET WEBSITE>";
 
 /**
  * Merupakan laman yang menangani proses login
@@ -24,24 +19,27 @@ class Login extends Component {
    * layak login. Jika ya, berikan user token, jika tidak, berikan pesan error
    */
   handleLogin = async e => {
-    // Handles LOGIN ==> CHANGE PLZ
+    // Handles Login
     e.preventDefault();
 
+    // Getting account number
     const account = e.target.elements.username.value;
     
+    // Sending request using SOAP to ws-bank
     const request = require("request");
     let xml = 
-    `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:log="http://login/">
+    `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service/">
         <soapenv:Header/>
         <soapenv:Body>
-          <log:AccountLogin>
-              <arg0>` + account +  `</arg0>
-          </log:AccountLogin>
+          <ser:AccountLogin>
+              <arg0>` + account + `</arg0>
+          </ser:AccountLogin>
         </soapenv:Body>
-    </soapenv:Envelope>`;
+    </soapenv:Envelope>>`;
 
+    // Target wsdl
     var options = {
-      url: 'http://localhost:8080/ws_bank_war_exploded/services/Login?wsdl',
+      url: 'http://localhost:8080/ws-bank/service/Login?wsdl',
       method: 'POST',
       body: xml,
       headers: {
@@ -49,33 +47,36 @@ class Login extends Component {
       }
     };
 
+    // Get the callback from the result
     let callback = (error, response, body) => {
       console.log(body);
       if (!error && response.statusCode === 200) {
-        console.log('Raw result', body);
-        // var xml2js = require('xml2js');
-        // var parser = new xml2js.Parser({explicitArray: false, trim: true});
-        // parser.parseString(body, (err, result) => {
-        //   console.log('JSON result', result);
-        // });
+        // Get return 
+        let result = new DOMParser().parseFromString(body, 'text/xml');
+        result = result.getElementsByTagName('return')[0];
+        
+        const status = result.childNodes[0].textContent;
+        if (status === "200") {
+          const cookie = new Cookies();
+          const id = result.childNodes[1].textContent;
+          const name = result.childNodes[2].textContent;
+          cookie.set("login", (id + ";" + name), {path: "/", expires: new Date(Date.now()+1800000)});
+          window.location.reload();
+        }
+        else {
+          console.log("out");
+          this.setState({
+            loginFail: true,
+            status: "Account does not exist in database"
+          });
+        }
       };
-      console.log('E', response.statusCode, response.statusMessage);  
     };
+
     request(options, callback);
-
-
-    // const cookie = new Cookies();
-    // cookie.set("login", "testValue", { path: "/", expires: new Date(Date.now()+1800000)});
-    // window.location.reload();
   };
 
   render() {
-    if (new Cookies().get("login")) {
-      return <Redirect to = {{
-        pathname: "/Title"
-      }} />
-    }
-
     return (
       <React.Fragment>
         <NavigationBar/>
