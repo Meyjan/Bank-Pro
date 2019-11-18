@@ -36,6 +36,15 @@ class TransactionHistory extends Component{
           </ser:AccountHistory>
         </soapenv:Body>
     </soapenv:Envelope>>`;
+    let xml3 = 
+    `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service/">
+        <soapenv:Header/>
+        <soapenv:Body>
+          <ser:AccountLogin>
+              <arg0>` + account + `</arg0>
+          </ser:AccountLogin>
+        </soapenv:Body>
+    </soapenv:Envelope>>`;
 
     // Target wsdl
     var options = {
@@ -51,6 +60,15 @@ class TransactionHistory extends Component{
       url: 'http://localhost:8080/ws-bank/service/TransactionHistory?wsdl',
       method: 'POST',
       body: xml2,
+      headers: {
+        'Content-Type':'text/xml;charset=utf-8',
+      }
+    };
+
+    var options3 = {
+      url: 'http://localhost:8080/ws-bank/service/Login?wsdl',
+      method: 'POST',
+      body: xml3,
       headers: {
         'Content-Type':'text/xml;charset=utf-8',
       }
@@ -112,11 +130,11 @@ class TransactionHistory extends Component{
         request(options2, callback2);
       }
     };
-    
+
     // Get the callback from the result
     let callback2 = (error, response, body) => {
       if (!error && response.statusCode === 200) {
-        // Get return dan set state data, balance, transaksi serta memanggil sortByDate()
+        // Get return dan set state data, transaksi serta memanggil sortByDate()
         let result = new DOMParser().parseFromString(body, 'text/xml');
         var nodeList = result.getElementsByTagName('return');
         let temp_data = [];
@@ -129,11 +147,23 @@ class TransactionHistory extends Component{
           child.push(temp_element.getElementsByTagName('targetaccount')[0].textContent);
           temp_data.push(child);
         }
+        this.setState({data: temp_data, transaksi: temp_data});
+        console.log(this.state.transaksi);
+        this.setState(changeData(account));
+        sortByDate();        
+        request(options3, callback3);
+      }
+    };
+
+    // Get the callback from the result
+    let callback3 = (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        // Get return dan set state balance
+        let result = new DOMParser().parseFromString(body, 'text/xml');
+        var nodeList = result.getElementsByTagName('return');
         let temp_acc = [];
         temp_acc.push(nodeList[0].getElementsByTagName('balance')[0].textContent);
-        this.setState({data: temp_data, balance: temp_acc, transaksi: temp_data});
-        this.setState(changeData(account));
-        sortByDate();
+        this.setState({balance: temp_acc});
       }
     };
     
