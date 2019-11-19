@@ -36,7 +36,7 @@ class NavigationBar extends Component {
         <button className="btn btn-default">
           <Link to = "/Title">
             <h4>
-              <font color="white">React NIM Finder</font>
+              <font color="white">Bank Pro</font>
             </h4>
           </Link>
         </button>
