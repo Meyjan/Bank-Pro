@@ -1,9 +1,8 @@
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import {MemoryRouter} from 'react-router-dom';
 import Login from './Login';
-import { format } from 'path';
 
 describe('Initial state', () => {
     it('has false login state with empty query', () => {

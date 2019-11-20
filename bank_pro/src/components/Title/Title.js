@@ -16,7 +16,7 @@ const Title = () => {
             <p>BANK PRO</p>
             <h3>-----------------------------------------------</h3>
             <h4>Though you have to login first</h4>
-            <h5>login dammit! (or click help if you're braindead)</h5>
+            <h5>login dammit! (or click help if you&apos;re braindead)</h5>
           </div>
         </div>
       </div>

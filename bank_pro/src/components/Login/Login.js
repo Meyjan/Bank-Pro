@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import LoginForm from "./LoginForm";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import Cookies from "universal-cookie";
 import "./Login.css";
@@ -10,9 +9,9 @@ import "./Login.css";
 class Login extends Component {
     state = {
         loginFail: false,
-        status: ""
-    };
-
+        status: ''
+    }
+    
     /**
      * Melakukan HTTP POST ke API yang disediakan untuk menentukan
      * apakah nama dan password tersebut sudah terdaftar dan user
@@ -70,11 +69,11 @@ class Login extends Component {
                         status: "Account does not exist in database"
                     });
                 }
-            };
+            }
         };
 
         request(options, callback);
-    };
+    }
 
     render() {
         return (
@@ -93,7 +92,24 @@ class Login extends Component {
                     </div>
                     <div className="login-form-wrapper">
                         <div className="login-form-text-wrapper">
-                            <LoginForm onLogin={this.handleLogin} />
+                            <form onSubmit={this.handleLogin}>
+                                <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="inputGroup-sizing-default">
+                                    Account
+                                    </span>
+                                </div>
+                                <input
+                                    type="text"
+                                    name = "username"
+                                    className="form-control"
+                                    placeholder="Acc. Number..."
+                                    aria-label="Default"
+                                    aria-describedby="inputGroup-sizing-default"
+                                />
+                                </div>
+                                <button className="btn btn-outline-secondary btn-lg" type = "submit">Login!</button>
+                            </form>
                             {this.state.loginFail && <p>---------------</p>}
                             {this.state.loginFail && <p>Login Failed...</p>}
                             {this.state.loginFail && <p>{this.state.status}</p>}

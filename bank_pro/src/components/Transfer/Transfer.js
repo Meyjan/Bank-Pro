@@ -21,8 +21,8 @@ const Transfer = () => {
           <p>
             Enter your desired username and password at the provided input box.
             After that, click the register button It may have been taken by
-            others though, but usually it haven't been taken by others, so
-            usually you won't have to rethink for your username and password.
+            others though, but usually it haven&apos;t been taken by others, so
+            usually you won&apos;t have to rethink for your username and password.
             After being registered, you can access your log into your account so
             that you can start <i>stalking</i>.
           </p>
@@ -34,20 +34,20 @@ const Transfer = () => {
             your username and your password at the provided space and hit the
             login button. After logging in, you now gain access to the API and
             now can start <i>stalking</i>. Remember to register first if you
-            don't have an account. Otherwise, you won't be able to login (
+            don&apos;t have an account. Otherwise, you won&apos;t be able to login (
             <i>obviously</i>).
           </p>
           <p>
             <b>SEARCH</b>
           </p>
           <p>
-            Your stalking machine! Be it your friend's NIM or name, this machine
+            Your stalking machine! Be it your friend&apos;s NIM or name, this machine
             can look up the details for you! Just enter your query at the
             provided space and click on the search button to start searching.
             This machine will then return the result it gets from the API, which
             is the list of name and the details about that person which has the
-            same criteria as your query (or nothing if it doesn't match with
-            anything). Do remember, this feature is only accessible once you've
+            same criteria as your query (or nothing if it doesn&apos;t match with
+            anything). Do remember, this feature is only accessible once you&apos;ve
             logged in.
           </p>
           <p>
@@ -55,10 +55,10 @@ const Transfer = () => {
           </p>
           <p>
             Log out from your account. This feature is only accessible once
-            you've logged in. Though I should say you shouldn't use this feature
-            because it's preventing you from stalking your friends. I suggest
+            you&apos;ve logged in. Though I should say you shouldn&apos;t use this feature
+            because it&apos;s preventing you from stalking your friends. I suggest
             you should only use this feature once doctors and psychiatrists come
-            into your house because you've done too much stalking.
+            into your house because you&apos;ve done too much stalking.
           </p>
         </div>
       </div>

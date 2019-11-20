@@ -28,6 +28,8 @@ test:
 deploy:dev:
   stage: deploy
   script:
-    - bash deploy/deploy.sh
+    - pm2 delete all
+    - pm2 start npm -- start --name bank_pro
+    - pm2 status
   only:
     - master
