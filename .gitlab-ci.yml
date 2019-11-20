@@ -14,7 +14,7 @@ stages:
 # Caching npm
 cache:
   paths:
-    - node_modules/
+    - bank_pro/node_modules/
 
 # Build
 install_dependencies:
