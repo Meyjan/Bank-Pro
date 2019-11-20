@@ -2,9 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import {MemoryRouter} from 'react-router-dom';
-
-// Import component to be tested
-import Login from './login'
+import Login from './Login';
 import { format } from 'path';
 
 describe('Initial state', () => {
