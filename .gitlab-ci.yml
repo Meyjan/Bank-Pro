@@ -18,6 +18,7 @@ stages:
 lint:
   stage: test
   script:
+    - npm install eslint
     - npm run lint
 # Job 2:
 test:
