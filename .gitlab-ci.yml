@@ -23,7 +23,7 @@ install_dependencies:
     - npm install
   artifacts:
     paths:
-      - node_modules/
+      - bank_pro/node_modules/
 
 # Lint
 lint:
@@ -41,9 +41,9 @@ test:
 deploy:dev:
   stage: deploy
   script:
-    - set -e
     - pm2 delete bank_pro
     - pm2 start npm -- start --name bank_pro
     - pm2 status
   only:
     - master
+    - development
