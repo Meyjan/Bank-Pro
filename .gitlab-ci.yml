@@ -1,34 +1,48 @@
 # Node docker image on which our code would run
-image: node:8.10.0
+image: node:latest
 
 #This command is run before all the jobs
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - cd bank_pro
-  - npm install
 
 stages:
+  - build
   - test
   - deploy
 
-# lint and test are two different jobs in the same stage.
-# This allows us to run these two in parallel and making build faster
+# Caching npm
+cache:
+  paths:
+    - node_modules/
 
-# Job 1:
+# Build
+install_dependencies:
+  stage: build
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+# Lint
 lint:
   stage: test
   script:
     - npm run lint
-# Job 2:
+
+# Test
 test:
   stage: test
   script:
     - npm run test
 
+# Deploy
 deploy:dev:
   stage: deploy
   script:
-    - pm2 delete all
+    - set -e
+    - pm2 delete bank_pro
     - pm2 start npm -- start --name bank_pro
     - pm2 status
   only:
