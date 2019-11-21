@@ -12,10 +12,10 @@ class TransactionHistory extends Component{
     data : [],
     balance : [],
     virtual : [],
-    transaksi : [],
+    transaksi : []
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const cookie = new Cookies();
     const account = Object.values(cookie.get("login"))[0].split(";")[0];
     // Sending request using SOAP to ws-bank
@@ -168,7 +168,7 @@ class TransactionHistory extends Component{
     };
     
     request(options, callback);
-  };
+  }
   
   render() {
     return (

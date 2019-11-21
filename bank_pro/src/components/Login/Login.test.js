@@ -1,11 +1,8 @@
 import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import {MemoryRouter} from 'react-router-dom';
-
-// Import component to be tested
-import Login from './login'
-import { format } from 'path';
+import Login from './Login';
 
 describe('Initial state', () => {
     it('has false login state with empty query', () => {
