@@ -42,6 +42,12 @@ deploy:dev:
   stage: deploy
   script:
     - pm2 delete bank_pro
+    - cd ~
+    - rm -rf bank-pro
+    - git clone git@gitlab.informatika.org:if3110-2019-02-k02-01/bank-pro.git
+    - cd bank-pro
+    - cd bank_pro
+    - npm install
     - pm2 start npm -- start --name bank_pro
     - pm2 status
   only:
