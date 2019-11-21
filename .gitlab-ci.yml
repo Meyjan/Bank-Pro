@@ -41,7 +41,7 @@ test:
 deploy:dev:
   stage: deploy
   script:
-    - pm2 delete --silent bank_pro
+    - pm2 delete --silent bank_pro || ':'
     - cd ~
     - rm -rf bank-pro
     - git clone git@gitlab.informatika.org:if3110-2019-02-k02-01/bank-pro.git
