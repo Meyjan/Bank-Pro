@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import Cookies from "universal-cookie";
 import "./Transfer.css";
-import TransferForm from "./TransferForm";
+import Modal from 'react-bootstrap/Modal';
+
 /**
  * Merupakan laman Transfer yang memberikan basa-basi mengenai fitur yang terdapat dalam program ini
  */
@@ -15,8 +16,13 @@ class Transfer extends Component {
   }
 
   state = {
+    smShow: false,
     trfStatus: undefined,
     trfMessage: "Error not loaded."
+  };
+
+  setSmShow = sm => {
+    this.setState({smShow: sm});
   };
   
   handleTrf = async e => {
@@ -105,7 +111,7 @@ class Transfer extends Component {
             status: "Transfer Failed."
           });
         }
-      };
+      }
     };
 
     request(options, callback);
@@ -122,13 +128,84 @@ class Transfer extends Component {
           </div>
           <div className="trf-text">
           </div>
-          <TransferForm onTrf={this.handleTrf} trfst={this.state.trfMessage} senderNo={this.state.cookieId} />
+          <form onSubmit={this.handleTrf}>
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="input-sender_acc">
+                  Sender Acc No.
+                </span>
+              </div>
+              <input
+                type="text"
+                name = "sender_acc"
+                className="form-control"
+                disabled="true"
+                value={this.state.cookieId}
+                aria-label="Default"
+                aria-describedby="input-sender_acc"
+              />
+            </div>
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="input-receiver_name">
+                  Receiver Acc No.
+                </span>
+              </div>
+              <input
+                type="text"
+                name = "receiver_acc"
+                className="form-control"
+                placeholder="Receiver Account/Virtual Number.."
+                aria-label="Default"
+                aria-describedby="input-receiver_name"
+              />
+            </div>
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="input-trf_amount">
+                  Amount
+                </span>
+              </div>
+              <input
+                type="text"
+                name = "trf_amount"
+                className="form-control"
+                placeholder=""
+                aria-label="Default"
+                aria-describedby="input-trf_amount"
+              />
+            </div>
+            <div className="button-container">
+              <button 
+                className="trf-btn btn btn-outline-secondary btn-lg"
+                type="submit"
+                onClick={() => this.setSmShow(true)}
+              >
+                Confirm
+              </button>
+            </div>
+          </form>
+
+          <Modal
+            size="sm"
+            show={this.state.smShow}
+            onHide={() => this.setSmShow(false)}
+            aria-labelledby="example-modal-sizes-title-sm"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="example-modal-sizes-title-sm">
+                Transfer Status
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{this.state.trfMessage}</Modal.Body>
+          </Modal>
+          {/* <TransferForm onTrf={this.handleTrf} trfst={this.state.trfMessage} senderNo={this.state.cookieId} /> */}
         </div>
       </div>
-      
-      </React.Fragment>
+    
+    </React.Fragment>
     );
-  };
+  }
 }
 
 export default Transfer;
