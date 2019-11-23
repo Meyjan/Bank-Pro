@@ -1,6 +1,10 @@
 import React from 'react';
 import { expect } from 'chai';
+<<<<<<< Updated upstream
 import { mount } from 'enzyme';
+=======
+import { Enzyme, shallow, mount } from 'enzyme';
+>>>>>>> Stashed changes
 import {MemoryRouter} from 'react-router-dom';
 import Login from './Login';
 
@@ -25,6 +29,8 @@ describe('Initial state', () => {
         expect(tested.state('status')).to.equal("");
     });
 });
+
+describe('Login, ()')
 
 // describe('Calls submit function', () => {
 //     it('calls submit function', () => {
