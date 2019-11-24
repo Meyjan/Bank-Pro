@@ -25,20 +25,3 @@ describe('Initial state', () => {
         expect(tested.state('status')).to.equal("");
     });
 });
-
-// describe('Calls submit function', () => {
-//     it('calls submit function', () => {
-//         const wrapper = mount (
-//             <MemoryRouter initialEntries={['/Login']}>
-//                 <Login />
-//             </MemoryRouter>
-//         );
-
-//         const spyFunction = jest.spyOn(Login.prototype, 'handleLogin');
-//         const tested = wrapper.find('Login').find('LoginForm').find('form');
-//         const input = tested.find('input').first();
-//         input.simulate('change', {target: {value: '0'}});
-//         tested.simulate('submit');
-//         expect(spyFunction).toHaveBeenCalled();
-//     });
-// });
