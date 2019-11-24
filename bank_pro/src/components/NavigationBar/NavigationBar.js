@@ -27,6 +27,9 @@ class NavigationBar extends Component {
   }
 
   cookieNameGetter() {
+    if (this.state.cookie == undefined) {
+      return "";
+    }
     return this.state.cookie.split(";")[1];
   }
 

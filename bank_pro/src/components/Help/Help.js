@@ -28,7 +28,7 @@ const Help = () => {
                         </p>
                         <p>
                             Transfers part of your balance to other accounts. This feature is 
-                            also the only gateway for Engima Movie payment (since we're this 
+                            also the only gateway for Engima Movie payment (since we are this 
                             great at monopoly). 
                         </p>
                         <p>
@@ -42,7 +42,7 @@ const Help = () => {
                             <b>LOGOUT</b>
                         </p>
                         <p>
-                            Logs out of your account. Doesn't help much tho... Just returns you 
+                            Logs out of your account. Does not help much tho... Just returns you 
                             towards the main menu and waits for you to perform login again...
                         </p>
                     </div>

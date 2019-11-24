@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from './Router';
-import {Cookies} from 'universal-cookie';
 
 describe('Test without cookie', () => {
     // Testing for render
@@ -17,7 +16,6 @@ describe('Test without cookie', () => {
 
 describe('Test with cookie', () => {
     it('renders without crashing too', () => {
-        jest.mock(Cookies, ()=> ({get: () => {login: 'test'}}));
         const div = document.createElement('div');
         ReactDOM.render(
             <Router />

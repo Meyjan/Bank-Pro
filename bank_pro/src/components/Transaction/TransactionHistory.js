@@ -8,6 +8,15 @@ import Cookies from "universal-cookie";
  * Merupakan laman history transaksi
  */
 class TransactionHistory extends Component{
+  constructor() {
+    super();
+    const cookie = new Cookies();
+    if (cookie.get("login") != undefined) {
+      this.state.account = cookie.get("login").split(";")[0];
+    } else {
+      this.state.account = undefined;
+    }
+  }
   state = {
     data : [],
     balance : [],
@@ -15,9 +24,8 @@ class TransactionHistory extends Component{
     transaksi : []
   }
 
-  UNSAFE_componentWillMount() {
-    const cookie = new Cookies();
-    const account = Object.values(cookie.get("login"))[0].split(";")[0];
+  componentDidMount() {
+    const account = this.state.account;
     // Sending request using SOAP to ws-bank
     const request = require("request");
     let xml = 

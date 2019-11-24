@@ -28,14 +28,13 @@ describe('Navigation Bar Test', () => {
         expect(wrapper.state('loggedIn')).to.equal(false);
         expect(wrapper.state('cookie')).to.equal(undefined);
     });
-});
 
-
-cookie.set("login", "login;login",  { path: '/' })
-
-describe('Navigation Bar Test with Cookie', () => {
-    it('gets the cookie', () => {
-        const wrapper = shallow(<NavigationBar />)
-        expect(wrapper.state('loggedIn')).to.equal(true); 
+    it('has different when state is set', () => {
+        const wrapper = shallow(<NavigationBar />);
+        wrapper.setState({loggedIn: true});
+        wrapper.setState({cookie: undefined});
+        expect(wrapper.state('loggedIn')).to.equal(true);
+        expect(wrapper.state('cookie')).to.equal(undefined);
     });
 });
+
