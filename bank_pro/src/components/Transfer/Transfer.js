@@ -12,7 +12,12 @@ class Transfer extends Component {
   constructor() {
     super();
     const cookie = new Cookies();
-    this.state.cookieId = cookie.get("login").split(";")[0];
+    if (cookie.get("login") != undefined) {
+      this.state.cookieId = cookie.get("login").split(";")[0];
+    } else {
+      this.state.cookieId = undefined;
+    }
+    
   }
 
   state = {
@@ -139,7 +144,7 @@ class Transfer extends Component {
                 type="text"
                 name = "sender_acc"
                 className="form-control"
-                disabled="true"
+                disabled={true}
                 value={this.state.cookieId}
                 aria-label="Default"
                 aria-describedby="input-sender_acc"

@@ -1,10 +1,6 @@
 import React from 'react';
 import { expect } from 'chai';
-<<<<<<< Updated upstream
-import { mount } from 'enzyme';
-=======
-import { Enzyme, shallow, mount } from 'enzyme';
->>>>>>> Stashed changes
+import { mount, shallow } from 'enzyme';
 import {MemoryRouter} from 'react-router-dom';
 import Login from './Login';
 
@@ -20,31 +16,30 @@ describe('Initial state', () => {
     });
 
     it('has undefined status of login', () => {
-        const wrapper = mount (
-            <MemoryRouter initialEntries={['/Login']}>
-                <Login />
-            </MemoryRouter>
+        const wrapper = shallow (
+            <Login />
         );
-        const tested = wrapper.find('Login');
-        expect(tested.state('status')).to.equal("");
+        expect(wrapper.state('status')).to.equal("");
     });
+
+    it('changes the status of login and status', () => {
+        const wrapper = shallow (
+            <Login />
+        );
+        wrapper.setState({loginFail: true});
+        wrapper.setState({status: "You fail"});
+        expect(wrapper.state('loginFail')).to.equal(true);
+        expect(wrapper.state('status')).to.equal("You fail");
+    });
+
+    it('submits form', () => {
+        const wrapper = shallow (
+            <Login />
+        );
+        const form = wrapper.find('form').first();
+        form.simulate('submit');
+        expect(wrapper.state('loginFail')).to.equal(false);
+    });
+
+    
 });
-
-describe('Login, ()')
-
-// describe('Calls submit function', () => {
-//     it('calls submit function', () => {
-//         const wrapper = mount (
-//             <MemoryRouter initialEntries={['/Login']}>
-//                 <Login />
-//             </MemoryRouter>
-//         );
-
-//         const spyFunction = jest.spyOn(Login.prototype, 'handleLogin');
-//         const tested = wrapper.find('Login').find('LoginForm').find('form');
-//         const input = tested.find('input').first();
-//         input.simulate('change', {target: {value: '0'}});
-//         tested.simulate('submit');
-//         expect(spyFunction).toHaveBeenCalled();
-//     });
-// });
