@@ -9,10 +9,10 @@ class NavigationBar extends Component {
   state = {
     loggedIn : false,
     cookie: undefined
-  };
+  }
 
   constructor() {
-    super();
+    super();  
     const cookie = new Cookies();
     this.state.cookie = cookie.get("login");
     if (this.state.cookie) {
@@ -20,13 +20,16 @@ class NavigationBar extends Component {
     }
   }
 
-  handleLogout = () => {
+  handleLogout() {
     const cookie = new Cookies();
     cookie.remove("login");
     window.location.reload();
   }
 
-  cookieNameGetter = () => {
+  cookieNameGetter() {
+    if (this.state.cookie == undefined) {
+      return "";
+    }
     return this.state.cookie.split(";")[1];
   }
 
@@ -150,6 +153,6 @@ class NavigationBar extends Component {
       </nav>
     );
   }
-};
+}
 
 export default NavigationBar;
